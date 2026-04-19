@@ -1,0 +1,173 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    container_name: log-assist-postgres
+    environment:
+      POSTGRES_USER: "user"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "log-assist"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U user -d log-assist" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - backend-network
+
+  image-db:
+    image: minio/minio
+    container_name: log-assist-minio
+    command: server /data
+    environment:
+      MINIO_ROOT_USER: "user"
+      MINIO_ROOT_PASSWORD: "password"
+      MINIO_ADDRESS: ":9000"
+      MINIO_CONSOLE_ADDRESS: ":9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio-data:/data
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - backend-network
+
+  api:
+    build: backend/api
+    container_name: log-assist-api
+    environment:
+      SSH_TUNNELING: "false"
+      SSH_HOST: ""
+      SSH_USER: ""
+      SSH_PASSWORD: ""
+      SSH_PORT: ""
+      PG_HOST: "db"
+      PG_PORT: "5432"
+      PG_USER: "user"
+      PG_PASSWORD: "password"
+      PG_DATABASE: "log-assist"
+      SECRET_KEY: "secret-key"
+      ALGORITHM: "HS256"
+      ACCESS_TOKEN_EXPIRE_MINUTES: "1800"
+      OPENROUTER_API_KEY: "sk-or-v1-4c8c73f..."
+      OPENROUTER_URL: "https://openrouter.ai/api/v1/chat/completions"
+      OPENROUTER_MODEL: "qwen/qwen2.5-vl-72b-instruct:free"
+      MINIO_ENDPOINT: "image-db:9000"
+      MINIO_ACCESS_KEY: "user"
+      MINIO_SECRET_KEY: "password"
+      MINIO_SECURE: "false"
+      MAX_IMAGE_SIZE: "2048"
+      MAX_IMAGE_COUNT: "2"
+      MAX_CONTEXT_TOKENS: "131072"
+      MAX_OUTPUT_TOKENS: "1024"
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      image-db:
+        condition: service_healthy
+    networks:
+      - backend-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    container_name: log-assist-frontend
+    environment:
+    - VITE_API_BASE_URL=/api
+    - VITE_MINIO_PUBLIC_URL=/
+    ports:
+      - "80:80"
+    depends_on:
+      api:
+        condition: service_healthy
+    networks:
+      - backend-network
+
+  logs-server:
+    build: backend/fluentd
+    container_name: log-assist-logs
+    ports:
+      - "24224:24224"
+    volumes:
+      - ./fluent.conf:/fluentd/etc/fluent.conf
+      - fluentd_data:/fluentd/log
+    environment:
+      - FLUENTD_CONF=fluent.conf
+      #- ELASTIC_PASSWORD=SecretWord
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "24224" ]
+      #test: ["CMD", "curl", "http://localhost:24220/api/plugins"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    networks:
+      - backend-network
+
+  elasticsearch:
+    image: elasticsearch:9.1.3
+    container_name: log-assist-elasticsearch
+    environment:
+      discovery.type: "single-node"
+      xpack.security.enabled: "false" # true
+      ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+      cluster.name: "docker-cluster"
+      #ELASTIC_PASSWORD: "SecretWord"
+      #xpack.security.authc.api_key.enabled: "true"
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - elastic_data:/usr/share/elasticsearch/data
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9200" ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    networks:
+      - backend-network
+
+  kibana:
+    image: kibana:9.1.3
+    container_name: log-assist-kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      #- ELASTICSEARCH_USERNAME=elastic
+      #- ELASTICSEARCH_PASSWORD=SecretWord
+      - ELASTICSEARCH_SSL_VERIFICATIONMODE=none
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:5601/api/status" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - backend-network
+
+volumes:
+  postgres-data:
+  minio-data:
+  fluentd_data:
+  elastic_data:
+
+networks:
+  backend-network:
+    driver: bridge

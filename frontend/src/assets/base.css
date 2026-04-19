@@ -1,0 +1,275 @@
+/* color palette from <https://github.com/vuejs/theme> */
+:root {
+  /* Base colors */
+  --vt-c-white: #ffffff;
+  --vt-c-white-soft: #f8f8f8;
+  --vt-c-white-mute: #f2f2f2;
+
+  --vt-c-black: #181818;
+  --vt-c-black-soft: #222222;
+  --vt-c-black-mute: #282828;
+
+  --vt-c-indigo: #2c3e50;
+
+  /* Dividers */
+  --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
+  --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
+  --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
+  --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
+
+  /* Text colors */
+  --vt-c-text-light-1: var(--vt-c-indigo);
+  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
+  --vt-c-text-dark-1: var(--vt-c-white);
+  --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+
+  /* Semantic colors - Light theme */
+  --color-background: var(--vt-c-white);
+  --color-background-soft: var(--vt-c-white-soft);
+  --color-background-mute: var(--vt-c-white-mute);
+  --color-border: var(--vt-c-divider-light-2);
+  --color-border-hover: var(--vt-c-divider-light-1);
+  --color-heading: var(--vt-c-text-light-1);
+  --color-text: var(--vt-c-text-light-1);
+
+  /* Component-specific colors - Light theme */
+  --message-user-bg: #EEDFFF;
+  --message-user-text: #000000;
+  --message-bot-bg: transparent;
+  --message-bot-text: #000000;
+  --sidebar-bg: #FCF9FF;
+  --panel-bg: #FFFFFF;
+  --panel-border: #e0e0e0;
+  --input-bg: #FFFFFF;
+  --input-border: #e0e0e0;
+  --input-text: var(--vt-c-text-light-1);
+  --input-placeholder: rgba(60, 60, 60, 0.6);
+  --chat-button-hover: rgba(238, 221, 255, 0.3);
+  --chat-button-active: rgba(139, 92, 246, 0.1);
+  --code-bg-color: #f6f8fa;
+
+  --dropdown-bg: #ffffff;
+  --dropdown-border: #e0e0e0;
+  --dropdown-item-text: #333333;
+  --dropdown-icon-color: #666666;
+  --dropdown-item-hover-bg: rgba(139, 92, 246, 0.1);
+  --dropdown-item-hover-text: #8b5cf6;
+
+  --danger-item-bg: #ffeeee;
+  --danger-item-text: #d32f2f;
+  --danger-item-hover-bg: #ffdddd;
+  --danger-item-hover-text: #b71c1c;
+  
+  /* Scrollbar colors - Light theme */
+  --scrollbar-track: #f1f1f1;
+  --scrollbar-thumb: #c1c1c1;
+  --scrollbar-thumb-hover: #a8a8a8;
+  --chat-scrollbar-thumb: #d8afff;
+  --chat-scrollbar-thumb-hover: #c59ce6;
+  --sidebar-scrollbar-thumb: #8b5cf6;
+  --sidebar-scrollbar-thumb-hover: #7c4dff;
+  
+  /* Цвета приоритетов */
+  --priority-low: #10b981;
+  --priority-medium: #757575;
+  --priority-high: #f59e0b;
+  --priority-critical: #ef4444;
+  
+  --priority-low-bg: #e6f7e6;
+  --priority-medium-bg: #f5f5f5;
+  --priority-high-bg: #fff8e1;
+  --priority-critical-bg: #ffebee;
+  
+  --priority-low-hover: #059669;
+  --priority-medium-hover: #616161;
+  --priority-high-hover: #d97706;
+  --priority-critical-hover: #dc2626;
+}
+
+
+/* Dark/Night theme */
+:root.night-mode {
+  /* Semantic colors - Dark theme */
+  --color-background: #1a1125;
+  --color-background-soft: #2a2135;
+  --color-background-mute: #3a3145;
+  --color-border: #4a4155;
+  --color-border-hover: #5a5165;
+  --color-heading: var(--vt-c-text-dark-1);
+  --color-text: var(--vt-c-text-dark-1);
+
+  /* Component-specific colors - Dark theme */
+  --message-user-bg: #3a3145;
+  --message-user-text: #f0e0ff;
+  --message-bot-bg: #2a2135;
+  --message-bot-text: #f0e0ff;
+  --sidebar-bg: #2a2135;
+  --panel-bg: #2a2135;
+  --panel-border: #3a3145;
+  --input-bg: #3a3145;
+  --input-border: #5a5165;
+  --input-text: #f0e0ff;
+  --input-placeholder: rgba(240, 224, 255, 0.6);
+  --chat-button-hover: rgba(90, 70, 124, 0.3);
+  --chat-button-active: rgba(120, 90, 154, 0.5);
+  --code-bg-color: #2a1a3e;
+
+  --dropdown-bg-night: #2a2135;
+  --dropdown-border-night: #3a3145;
+  --dropdown-item-text-night: #e2e8f0;
+  --dropdown-icon-color-night: #a0aec0;
+  --dropdown-item-hover-bg-night: rgba(139, 92, 246, 0.2);
+  --dropdown-item-hover-text-night: #b794f4;
+
+  --danger-item-bg-night: #3a1a1a;
+  --danger-item-text-night: #ff6b6b;
+  --danger-item-hover-bg-night: #4a2a2a;
+  --danger-item-hover-text-night: #ff5252;
+
+  /* Scrollbar colors - Dark theme */
+  --scrollbar-track: #2d3748;
+  --scrollbar-thumb: #4a5568;
+  --scrollbar-thumb-hover: #5a677a;
+  --chat-scrollbar-thumb: #6b46c1;
+  --chat-scrollbar-thumb-hover: #805ad5;
+  --sidebar-scrollbar-thumb: #6b46c1;
+  --sidebar-scrollbar-thumb-hover: #805ad5;
+
+  --priority-low: #34d399;
+  --priority-medium: #a0aec0;
+  --priority-high: #fbbf24;
+  --priority-critical: #f87171;
+  
+  --priority-low-bg: rgba(16, 185, 129, 0.1);
+  --priority-medium-bg: rgba(117, 117, 117, 0.1);
+  --priority-high-bg: rgba(245, 158, 11, 0.1);
+  --priority-critical-bg: rgba(239, 68, 68, 0.2);
+  
+  --priority-low-hover: #047857;
+  --priority-medium-hover: #718096;
+  --priority-high-hover: #b45309;
+  --priority-critical-hover: #b91c1c;
+}
+
+
+/* Base styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-text);
+  background: var(--color-background);
+  transition:
+    color 0.3s,
+    background-color 0.3s;
+  line-height: 1.6;
+  font-family: 'RostelecomBasis', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Стили скроллбаров в base.css */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(241, 241, 241, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8; 
+}
+
+/* Ночной режим для скроллбаров */
+:root.night-mode ::-webkit-scrollbar-thumb {
+  background: #4a5568; 
+}
+
+:root.night-mode ::-webkit-scrollbar-thumb:hover {
+  background: #5a677a; 
+}
+
+:root.night-mode ::-webkit-scrollbar-track {
+  background: rgba(45, 55, 72, 0.3); 
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #c1c1c1 rgba(241, 241, 241, 0.3);
+}
+
+:root.night-mode * {
+  scrollbar-color: #4a5568 rgba(45, 55, 72, 0.3);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+.chat-body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--chat-scrollbar-thumb) rgba(241, 241, 241, 0.5);
+}
+
+.sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--sidebar-scrollbar-thumb) rgba(241, 241, 241, 0.3);
+}
+
+/* Font faces */
+@font-face {
+  font-family: 'RostelecomBasis';
+  src: url('/fonts/RostelecomBasis-Light.woff2') format('woff2'),
+       url('/fonts/RostelecomBasis-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RostelecomBasis';
+  src: url('/fonts/RostelecomBasis-Regular.woff2') format('woff2'),
+       url('/fonts/RostelecomBasis-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RostelecomBasis';
+  src: url('/fonts/RostelecomBasis-Medium.woff2') format('woff2'),
+       url('/fonts/RostelecomBasis-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RostelecomBasis';
+  src: url('/fonts/RostelecomBasis-Bold.woff2') format('woff2'),
+       url('/fonts/RostelecomBasis-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
