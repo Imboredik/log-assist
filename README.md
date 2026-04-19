@@ -18,9 +18,12 @@
 
 ## Архитектура
 Фронтенд (Vue.js) ──► API (FastAPI) ────► PostgreSQL
-──► MinIO (изображения)
-──► OpenRouter AI (анализ)
-──► Fluentd ──► Elasticsearch ──► Kibana
+
+MinIO (изображения)
+
+OpenRouter AI (анализ)
+
+Fluentd ──► Elasticsearch ──► Kibana
 
 
 ## Запуск всего проекта
